@@ -27,6 +27,9 @@ public class LevelManager : MonoBehaviour {
     public float attackCooldown;
 
 
+    public float arrowForce;
+
+
     //Warrior Variable
     public bool canShield;
     public float shieldedTime;
@@ -143,17 +146,46 @@ public class LevelManager : MonoBehaviour {
     public void rangerRotateAttackPoint()
     {
 
+
+        //Sets the mouse position to the world space
         Vector3 mousePos = Input.mousePosition;
-        mousePos = Camera.main.WorldToScreenPoint(mousePos);
         mousePos.z = 0;
-        Vector3 v = new Vector3(rangerRotatePoint.localPosition.x, rangerRotatePoint.localPosition.y, rangerRotatePoint.localPosition.z);
-        rangerAttackPoint.transform.RotateAround(v, Vector3.forward, rotAngle * Time.deltaTime);
-        rangerAttackPoint.transform.position = Vector2.MoveTowards(rangerRotatePoint.transform.position, mousePos, 1f);
-        Debug.Log(mousePos);
-        
+        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+
+        //The issue with the following attempt is it is also rotating around the Y value and can move closer to the the RangerRotatePoint GameObject
+        //I would like to keep the distance between these two objects the same which is the reason for the other attempts below.
+
+        //Vector3 v = new Vector3(rangerRotatePoint.localPosition.x, rangerRotatePoint.localPosition.y, rangerRotatePoint.localPosition.z);
+        //rangerAttackPoint.transform.RotateAround(v, Vector3.forward, rotAngle * Time.deltaTime);
+        //rangerAttackPoint.transform.position = Vector2.MoveTowards(rangerRotatePoint.transform.position, mousePos, 1f);
+        //Vector3 targetDir = mousePos - rangerRotatePoint.transform.position;
+        //rangerAttackPoint.transform.rotation = Quaternion.LookRotation(targetDir, Vector3.forward);
+        //Debug.Log(mousePos);
+
+
+        //The following attempts all require the RangerAttackPoint game object to be the child of the RangerRotatePoint Gameobject.
+        //They are all attempting to change the z rotation of the RangerRotatePoint to be facing the mouse position.
+
+
+        Vector3 difference = mousePos - rangerRotatePoint.transform.position;
+        float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        rangerRotatePoint.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
+
+        //Vector3 dir = mousePos - rangerRotatePoint.transform.position;
+        //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+
+        //Vector2 newDir =  Vector3.RotateTowards(transform.forward, mousePos - rangerRotatePoint.transform.position, 10f, 0.0f);
+        //rangerRotatePoint.transform.rotation = Quaternion.LookRotation(newDir);
+
+
+        //Vector3 targetDir = rangerRotatePoint.position - mousePos;
+        //Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, 1f, 0.0f);
+        //rangerRotatePoint.transform.rotation = Quaternion.LookRotation(newDir);        
 
     }
-    
+
 
 
 
