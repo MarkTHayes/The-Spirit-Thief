@@ -26,8 +26,9 @@ public class LevelManager : MonoBehaviour {
     public bool canAttack;
     public float attackCooldown;
 
-
+    //Arrow Variables
     public float arrowForce;
+    public GameObject arrow;
 
 
     //Warrior Variable

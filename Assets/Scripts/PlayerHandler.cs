@@ -134,8 +134,13 @@ public class PlayerHandler : MonoBehaviour {
             {
                 LevelManager.instance.RangerDash();
                 
+                
+            }
 
 
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                Instantiate(LevelManager.instance.arrow, LevelManager.instance.rangerAttackPoint.transform.position, LevelManager.instance.rangerRotatePoint.rotation);
             }
 
 

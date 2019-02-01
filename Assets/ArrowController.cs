@@ -10,12 +10,13 @@ public class ArrowController : MonoBehaviour {
 	void Start () {
 
         arrowRB = GetComponent<Rigidbody2D>();
-        Vector2 v = new Vector2(LevelManager.instance.arrowForce, 0);
-        arrowRB.AddForce(v, ForceMode2D.Impulse);
+        Vector2 v = LevelManager.instance.rangerAttackPoint.transform.position - LevelManager.instance.rangerRotatePoint.localPosition;
+        arrowRB.AddForce(LevelManager.instance.rangerAttackPoint.transform.right * LevelManager.instance.arrowForce, ForceMode2D.Impulse);
+        Debug.DrawLine(LevelManager.instance.rangerRotatePoint.position, v, Color.red,10f);
 
 
-		
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
