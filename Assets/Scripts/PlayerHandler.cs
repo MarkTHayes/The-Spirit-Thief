@@ -8,7 +8,7 @@ public class PlayerHandler : MonoBehaviour {
 
     public bool canMove;
     public bool isMoving;
-    public int moveRight;
+   // public int moveRight;
     public Vector2 moveForce;
     public Vector2 jumpForce;
 
@@ -30,7 +30,7 @@ public class PlayerHandler : MonoBehaviour {
         playerRB = gameObject.GetComponent<Rigidbody2D>();
         playerAnimState = GetComponent<Animator>();
         facingRight = true;
-        moveRight = 1;
+        
         canMove = true;
         LevelManager.instance.canDash = true;
 	}
@@ -40,19 +40,19 @@ public class PlayerHandler : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        moveForce = new Vector2(LevelManager.instance.playerSpeed * moveRight, playerRB.velocity.y);
+        moveForce = new Vector2(LevelManager.instance.playerSpeed * Input.GetAxis("Horizontal"), playerRB.velocity.y);
         jumpForce = new Vector2(playerRB.velocity.x, LevelManager.instance.playerJumpForce);
 
 
         if (Input.GetAxis("Horizontal") > 0 && LevelManager.instance.canMove)
         {
             isMoving = true;
-            moveRight = 1;
+            //LevelManager.instance.moveRight = 1;
         }
         else if(Input.GetAxis("Horizontal") < 0 && LevelManager.instance.canMove)
         {
             isMoving = true;
-            moveRight = -1;
+            //LevelManager.instance.moveRight = -1;
         }
         else
         {
@@ -169,16 +169,21 @@ public class PlayerHandler : MonoBehaviour {
     private void FixedUpdate()
     {
        // groundCheck = Physics2D.OverlapCircle(groundCheck.transform.position, 1f);
-        if (isMoving && moveRight > 0 && canMove)
+
+        if (isMoving && canMove)
         {
             playerRB.velocity = moveForce;
-            Debug.Log("move right");
         }
-        else if (isMoving && moveRight < 0 && canMove)
-        {
-            playerRB.velocity = moveForce;
-            Debug.Log("move right");
-        }
+        //if (isMoving && LevelManager.instance.moveRight > 0 && canMove)
+        //{
+        //    playerRB.velocity = moveForce;
+        //    Debug.Log("move right");
+        //}
+        //else if (isMoving && LevelManager.instance.moveRight < 0 && canMove)
+        //{
+        //    playerRB.velocity = moveForce;
+        //    Debug.Log("move right");
+        //}
         else
         {
             playerRB.velocity = new Vector2(playerRB.velocity.x * 0.9f, playerRB.velocity.y);
@@ -218,13 +223,13 @@ public class PlayerHandler : MonoBehaviour {
 
     private void FlipCharacter()
     {
-        if (moveRight == 1 && !facingRight)
+        if (LevelManager.instance.moveRight == 1 && !facingRight)
         {
             Vector3 v = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
             transform.localScale = v;
             facingRight = true;
         }
-        if (moveRight == -1 && facingRight)
+        if (LevelManager.instance.moveRight == -1 && facingRight)
         {
             Vector3 v = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
             transform.localScale = v;

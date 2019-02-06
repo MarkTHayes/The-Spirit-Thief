@@ -8,6 +8,9 @@ TagManager:
   - Enemy
   - CheckPoint
   - W_AttackBox
+  - TriggerZone
+  - EnemyRearCollider
+  - T_AttackBox
   layers:
   - Default
   - TransparentFX

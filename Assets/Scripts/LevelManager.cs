@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour {
     public bool resetVelocity;
     public float resetVelocityTime;
     public bool canMove;
+    public int moveRight;
 
     public int playerState;
 
@@ -47,6 +48,11 @@ public class LevelManager : MonoBehaviour {
     public GameObject rangerAttackPoint;
     public Transform rangerRotatePoint;
     public float rotAngle;
+    private float dashCooldown;
+
+
+    //Thief Variables
+    public int assassinateDamageValue;
 
 
     //Checkpoint Variable
@@ -65,7 +71,9 @@ public class LevelManager : MonoBehaviour {
 
         canShield = true;
         canAttack = true;
-	}
+        moveRight = 1;
+        dashCooldown = 3f;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -85,6 +93,10 @@ public class LevelManager : MonoBehaviour {
             wAttack = false;
         }
 
+
+        //Ranger
+
+        //Restores gravity and velocity after the dash has finished
         if(Time.time > resetVelocityTime && resetVelocity)
         {
             resetVelocity = false;
@@ -93,7 +105,13 @@ public class LevelManager : MonoBehaviour {
 
         }
 
-        rangerRotateAttackPoint();
+        RangerRotateAttackPoint();
+
+        if (Time.time > dashCooldown)
+        {
+            canDash = true;
+        }
+
 
 
 
@@ -112,8 +130,10 @@ public class LevelManager : MonoBehaviour {
     {
         if (canAttack)
         {
+
+            
             canAttack = false;
-            attackCooldown = Time.time + 2;
+            attackCooldown = Time.time + 0.75f;
             wAttack = true;
             wAttackTimer = Time.time + 0.5f;
 
@@ -124,6 +144,7 @@ public class LevelManager : MonoBehaviour {
 
     public void RangerDash()
     {
+        canDash = false;
         canMove = false;
         resetVelocityTime = Time.time + 0.15f;
         resetVelocity = true;
@@ -131,9 +152,11 @@ public class LevelManager : MonoBehaviour {
         playerRB.velocity = new Vector3(0, 0, 0);
         playerRB.gravityScale = 0;
         Debug.Log(Input.GetAxisRaw("Horizontal"));
-        Vector3 v = new Vector3(dashForce * playerHandler.moveRight, 0, 0);
+        Vector3 v = new Vector3(dashForce * moveRight, 0, 0);
         playerRB.AddForce(v, ForceMode2D.Impulse);
-        playerRB.gravityScale = 1;        
+        playerRB.gravityScale = 1;
+        dashCooldown = Time.time + 3;
+        
          
         
     }
@@ -144,7 +167,7 @@ public class LevelManager : MonoBehaviour {
     }
 
 
-    public void rangerRotateAttackPoint()
+    public void RangerRotateAttackPoint()
     {
 
 
@@ -168,9 +191,37 @@ public class LevelManager : MonoBehaviour {
         //They are all attempting to change the z rotation of the RangerRotatePoint to be facing the mouse position.
 
 
-        Vector3 difference = mousePos - rangerRotatePoint.transform.position;
+        Vector3 difference = mousePos * moveRight - rangerRotatePoint.transform.position *moveRight;
         float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        rotationZ = Mathf.Clamp(rotationZ, -80, 80);
         rangerRotatePoint.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
+
+
+
+
+        //THIS NEEDS TO BE MOVED
+        //Changes the player direction based on the mouse position relative to the player
+        if (mousePos.x > rangerRotatePoint.transform.position.x)
+        {
+            if(moveRight == -1)
+            {
+                moveRight = 1;
+            }
+        }
+        else if (mousePos.x < rangerRotatePoint.transform.position.x)
+        {
+            if (moveRight == 1)
+            {
+                moveRight = -1;
+            }
+        }
+
+
+
+
+
+
+
 
         //Vector3 dir = mousePos - rangerRotatePoint.transform.position;
         //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
