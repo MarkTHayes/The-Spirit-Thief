@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1486183071913762}
+  m_IsPrefabAsset: 1
+--- !u!1 &1486183071913762
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4715940446750926}
+  - component: {fileID: 114881770288121856}
+  m_Layer: 0
+  m_Name: LM
+  m_TagString: Untagged
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4715940446750926
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1486183071913762}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0012387037, y: 3.04, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114881770288121856
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1486183071913762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db812c3e3a582024d8ca686f304c0a3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftMouse: 0
+  playerGO: {fileID: 0}
+  playerHandler: {fileID: 0}
+  playerHealth: 0
+  playerSpeed: 5
+  playerJumpForce: 10
+  playerRB: {fileID: 0}
+  playerVelocity: {x: 0, y: 0, z: 0}
+  canMove: 0
+  moveRight: 0
+  Score: 0
+  scoreInc: {fileID: 0}
+  playerState: 1
+  playerSoulCount: 30
+  canAttack: 0
+  arrowForce: 12
+  arrow: {fileID: 1817657126668548, guid: 42ec5048d0b3a4f44ace868baa553c87, type: 2}
+  canShield: 0
+  shieldedTime: 0
+  wAttackBox: {fileID: 1147107557676792, guid: 018376acbfe53e341bde0a080099d5c0, type: 2}
+  wAttackPoint: {fileID: 0}
+  wAttack: 0
+  wAttackTimer: 0.25
+  wAttackCooldown: 1
+  canDash: 0
+  dashForce: 60
+  dashTimer: 0
+  dashCooldown: 3
+  resetVelocity: 0
+  resetVelocityTime: 0.15
+  rangerAttackPoint: {fileID: 0}
+  rangerRotatePoint: {fileID: 0}
+  rotAngle: 0
+  canFireArrow: 0
+  rAttackCooldown: 1
+  assassinateDamageValue: 10
+  canBlink: 1
+  isBlinking: 0
+  blinkCooldown: 3
+  blinkDuration: 1
+  tAttack: 0
+  tAttackTimer: 0.15
+  tAttackCooldown: 0.75
+  checkpoint: {fileID: 0}
+  canInteract: 0

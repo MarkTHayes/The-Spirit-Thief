@@ -11,6 +11,9 @@ TagManager:
   - TriggerZone
   - EnemyRearCollider
   - T_AttackBox
+  - PlayerArrow
+  - ResetZone
+  - Coin
   layers:
   - Default
   - TransparentFX
@@ -20,14 +23,14 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - EnemyTriggerZone
+  - Enemy
+  - EnemyRearCollider
+  - WarriorAttackCollider
+  - ThiefPlatform
+  - Player
+  - ThiefAttackCollider
+  - Ground
   - 
   - 
   - 
